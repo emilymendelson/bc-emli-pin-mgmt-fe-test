@@ -8,7 +8,7 @@ spec:
   source:
     type: Git
     git:
-      uri: https://github.com/bcgov/bc-emli-pin-mgmt-fe
+      uri: https://github.com/bcgov/bc-emli-pin-mgmt-fe-test
     contextDir:
   strategy:
     type: Docker
