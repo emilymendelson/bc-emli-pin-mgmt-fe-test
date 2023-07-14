@@ -10,18 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # strategy:
-    #   matrix:
-    #     node-version: [14.x, 16.x, 18.x]
-    #     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/ 
+    strategy:
+      node-version: [16.x]
+      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/ 
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ node-version }}
           cache: "npm"
 
       - name: Install dependencies
@@ -42,104 +41,3 @@ jobs:
         shell: bash
         run: |
           oc start-build bc-emli-pin-mgmt-fe
-
-#  Template React build
-
-#  This template allows you to validate your React code.
-#  The workflow allows running tests and code linting on the default branch.
-
-# image: node:10.15.3
-
-# definitions:
-#   steps:
-#     - step: &pre-deployment
-#         name: Install, Lint and Test
-#         script:
-#           - npm install
-#           - npm run lint
-#           - npm run test
-#         caches:
-#           - node
-
-# pipelines:
-#   default:
-#     - step: *pre-deployment
-#   branches:
-#     feature/*:
-#       - step: *pre-deployment
-#     fix/*:
-#       - step: *pre-deployment
-#     release/*:
-#       - step: *pre-deployment
-#     bug/*:
-#       - step: *pre-deployment
-#     develop:
-#       - step: *pre-deployment
-#       - step:
-#           name: Deploy
-#           script:
-#             - echo $CodeCommitKey > ~/.ssh/codecommit_rsa.tmp
-#             - base64 -d ~/.ssh/codecommit_rsa.tmp > ~/.ssh/codecommit_rsa
-#             - chmod 400 ~/.ssh/codecommit_rsa
-#             - echo $CodeCommitConfig > ~/.ssh/config.tmp
-#             - base64 -d  ~/.ssh/config.tmp > ~/.ssh/config
-#             - set +e
-#             - ssh -o StrictHostKeyChecking=no $CodeCommitHost
-#             - set -e
-#             - git remote add codecommit ssh://$CodeCommitRepo
-#             - git push codecommit $BITBUCKET_BRANCH
-#           caches:
-#             - node
-#     stage:
-#       - step: *pre-deployment
-#       - step:
-#           name: Deploy
-#           script:
-#             - echo $CodeCommitKey > ~/.ssh/codecommit_rsa.tmp
-#             - base64 -d ~/.ssh/codecommit_rsa.tmp > ~/.ssh/codecommit_rsa
-#             - chmod 400 ~/.ssh/codecommit_rsa
-#             - echo $CodeCommitConfig > ~/.ssh/config.tmp
-#             - base64 -d  ~/.ssh/config.tmp > ~/.ssh/config
-#             - set +e
-#             - ssh -o StrictHostKeyChecking=no $CodeCommitHost
-#             - set -e
-#             - git remote add codecommit ssh://$CodeCommitRepo
-#             - git push codecommit $BITBUCKET_BRANCH
-#           caches:
-#             - node
-#     releases:
-#       - step: *pre-deployment
-#       - step:
-#           name: Deploy
-#           script:
-#             - echo $CodeCommitKey > ~/.ssh/codecommit_rsa.tmp
-#             - base64 -d ~/.ssh/codecommit_rsa.tmp > ~/.ssh/codecommit_rsa
-#             - chmod 400 ~/.ssh/codecommit_rsa
-#             - echo $CodeCommitConfig > ~/.ssh/config.tmp
-#             - base64 -d  ~/.ssh/config.tmp > ~/.ssh/config
-#             - set +e
-#             - ssh -o StrictHostKeyChecking=no $CodeCommitHost
-#             - set -e
-#             - git remote add codecommit ssh://$CodeCommitRepo
-#             - git push codecommit $BITBUCKET_BRANCH
-#           caches:
-#             - node
-#     master:
-#       - step: *pre-deployment
-#       - step:
-#           name: Deploy
-#           script:
-#             - echo $CodeCommitKey > ~/.ssh/codecommit_rsa.tmp
-#             - base64 -d ~/.ssh/codecommit_rsa.tmp > ~/.ssh/codecommit_rsa
-#             - chmod 400 ~/.ssh/codecommit_rsa
-#             - echo $CodeCommitConfig_PROD > ~/.ssh/config.tmp
-#             - base64 -d  ~/.ssh/config.tmp > ~/.ssh/config
-#             - set +e
-#             - ssh -o StrictHostKeyChecking=no $CodeCommitHost
-#             - set -e
-#             - git remote add codecommit ssh://$CodeCommitRepo
-#             - git push codecommit $BITBUCKET_BRANCH
-#           caches:
-#             - node
-#     "*":
-#       - step: *pre-deployment
