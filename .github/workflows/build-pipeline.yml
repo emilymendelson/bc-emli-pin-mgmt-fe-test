@@ -1,10 +1,10 @@
 # name: Test + Build Pipeline
 
-# on:
-#   push:
-#     branches: ["dev", "qa", "main"]
-#   pull_request:
-#     branches: ["dev", "qa", "main"]
+on:
+  push:
+    branches: ["dev", "qa", "main"]
+  pull_request:
+    branches: ["dev", "qa", "main"]
 
 # jobs:
 #   build:
@@ -53,17 +53,17 @@ image: node:10.15.3
 definitions:
   steps:
     - step: &pre-deployment
-            name: Install, Lint and Test
-            script:
-              - npm install
-              - npm run lint
-              - npm run test
-            caches:
-              - node
+        name: Install, Lint and Test
+        script:
+          - npm install
+          - npm run lint
+          - npm run test
+        caches:
+          - node
 
 pipelines:
   default:
-      - step: *pre-deployment
+    - step: *pre-deployment
   branches:
     feature/*:
       - step: *pre-deployment
@@ -141,5 +141,5 @@ pipelines:
             - git push codecommit $BITBUCKET_BRANCH
           caches:
             - node
-    '*':
+    "*":
       - step: *pre-deployment
