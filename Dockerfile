@@ -58,6 +58,10 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=1001:1001 /app/.next/standalone ./
 COPY --from=builder --chown=1001:1001 /app/.next/static ./.next/static
 
+# For node.js
+# COPY --from=builder /app/package.json /app/server.js /app
+# COPY --from=builder /app/node_modules /app/node_modules
+
 USER 1001
 
 EXPOSE 3000
