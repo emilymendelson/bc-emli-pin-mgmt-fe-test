@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,12 +12,12 @@ export default function Home() {
       </Head>
       <section>
         <div role="heading" aria-level="2">
-          Nextjs Starter Template
+          Nextjs Starter Template!!!
         </div>
         <nav>
           <Link href="/testPage">Test Page</Link>
         </nav>
       </section>
     </>
-  )
+  );
 }
