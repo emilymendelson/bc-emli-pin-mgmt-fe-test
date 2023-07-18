@@ -39,10 +39,13 @@ name: Test + Build Pipeline
 #       - "main"
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        required: true
+  push:
+    branches:
+      - "dev"
+  # workflow_dispatch:
+  #   inputs:
+  #     environment:
+  #       required: true
 
 jobs:
   build:
