@@ -47,10 +47,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: ${{ vars.ENVIRONMENT_NAME }}
-
-    environment: dev
 
     strategy:
       matrix:
