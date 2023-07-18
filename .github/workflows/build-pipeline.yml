@@ -33,10 +33,16 @@ name: Test + Build Pipeline
 #       - name: Run tests
 #         run: npm test
 
+# on:
+#   push:
+#     branches:
+#       - "main"
+
 on:
-  push:
-    branches:
-      - "main"
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
 
 jobs:
   build:
