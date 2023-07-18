@@ -36,7 +36,7 @@ name: Test + Build Pipeline
 on:
   push:
     branches:
-      - "main"
+      - ${{ vars.environemnt }}
 
 jobs:
   build:
@@ -69,6 +69,11 @@ jobs:
         shell: bash
         run: |
           oc login --server=${{secrets.OPENSHIFT_LOGIN_REGISTRY}} --token=${{secrets.OPENSHIFT_SA_TOKEN}}
+
+      - name: Switch to correct project environment in Openshift
+        shell: bash
+        run: |
+          oc project ${{ vars.OPENSHIFT_NAMESPACE }}
 
       - name: Build image on OpenShift
         shell: bash
