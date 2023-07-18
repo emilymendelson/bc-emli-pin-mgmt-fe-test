@@ -33,14 +33,24 @@ name: Test + Build Pipeline
 #       - name: Run tests
 #         run: npm test
 
+# on:
+#   push:
+#     branches:
+#       - ${{ vars.ENVIRONMENT_NAME }}
+
 on:
-  push:
-    branches:
-      - ${{ vars.environemnt }}
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: 
+      name: ${{ vars.ENVIRONMENT_NAME }}
+
+    environment: dev
 
     strategy:
       matrix:
